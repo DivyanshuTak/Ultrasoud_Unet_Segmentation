@@ -1,0 +1,71 @@
+# Data paths
+data:
+  csv_path: "/media/data/divyanshu/spleen/data/filtered_roboflow/image_mask_pairs.csv"
+  images_dir: "/media/data/divyanshu/spleen/data/filtered_roboflow/images"
+  masks_dir: "/media/data/divyanshu/spleen/data/filtered_roboflow/masks"
+
+# Train/Val/Test split
+split:
+  train: 0.7
+  val: 0.15
+  test: 0.15
+  random_seed: 42
+
+# Model
+model:
+  n_channels: 1  # Grayscale (single channel) 
+  n_classes: 1
+  encoder_name: "resnet34"  
+  encoder_weights: "imagenet"  #  'imagenet' for pre-trained weights 
+
+# Training
+training:
+  batch_size: 64
+  epochs: 20 
+  learning_rate: 1e-4
+  img_size: 256
+  num_workers: 8
+  
+# Augmentations list
+augmentation:
+  enabled: true
+  horizontal_flip: 0.5
+  vertical_flip: 0.5
+  rotation_degrees: 10  
+  brightness_range: [0.8, 1.2]  
+  contrast_range: [0.8, 1.2] 
+  elastic_alpha: 50  
+  elastic_sigma: 5  
+
+# Optimizer
+optimizer:
+  type: "adam"
+  weight_decay: 1e-5
+
+# Scheduler
+scheduler:
+  type: "ReduceLROnPlateau"
+  factor: 0.5
+  patience: 5
+  mode: "min"
+
+# Loss config
+loss:
+  use_bce: true
+  use_dice: true
+  bce_weight: 1.0
+  dice_weight: 1.0  
+  
+
+# LOG
+wandb:
+  enabled: True  
+  project: "unet-segmentation_roboflow_kidney_binary_augmented"
+  run_name: "spleen_unetresnet34imagenetpretrained_roboflow_kidney_binary_augmented" 
+  tags: []  
+
+# Checkpoints
+checkpoints:
+  save_dir: "./checkpoints2"
+  resume: null  
+
